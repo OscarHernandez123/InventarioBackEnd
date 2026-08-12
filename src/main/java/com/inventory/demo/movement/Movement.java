@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.util.UUID;
 
+import com.inventory.demo.enums.MovementReason;
 import com.inventory.demo.enums.MovementType;
 import com.inventory.demo.ingredient.Ingredient;
 
@@ -22,6 +23,6 @@ public class Movement {
     @Enumerated(EnumType.STRING) @Column (nullable = false) private MovementType type;
     @Column (nullable = false, precision = 10, scale = 2) private BigDecimal quantity;
     @Column (nullable = false) private LocalDateTime date;
-    @Column private String note;
+    @Enumerated(EnumType.STRING) @Column (nullable = false) private MovementReason reason;
     @ManyToOne @JoinColumn (name = "ingredient_id") private Ingredient ingredient;
 }

@@ -1,5 +1,9 @@
 package com.inventory.demo.movement;
 
-public interface MovementRepository {
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MovementRepository extends JpaRepository <Movement, UUID>{
 
 }
