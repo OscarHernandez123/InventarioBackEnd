@@ -1,5 +1,13 @@
 package com.inventory.demo.movement;
 
-public interface MovementService {
+import java.util.List;
+import java.util.UUID;
 
+import com.inventory.demo.movement.MovementDtos.CreateMovementRequest;
+import com.inventory.demo.movement.MovementDtos.MovementResponse;
+
+public interface MovementService {
+    MovementResponse create(CreateMovementRequest request);
+    MovementResponse get(UUID movementId);
+    List<MovementResponse> listAll();
 }

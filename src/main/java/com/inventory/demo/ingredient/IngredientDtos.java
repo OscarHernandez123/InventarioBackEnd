@@ -20,7 +20,6 @@ public class IngredientDtos {
 
     public record PatchIngredientRequest(
         String name,
-        BigDecimal quantity,
         BigDecimal minimumStock,
         Unit unit,
         UUID categoryId
