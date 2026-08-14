@@ -12,6 +12,7 @@ import com.inventory.demo.exceptions.BusinessException;
 import com.inventory.demo.exceptions.ResourceNotFoundException;
 import com.inventory.demo.ingredient.IngredientDtos.CreateIngredientRequest;
 import com.inventory.demo.ingredient.IngredientDtos.IngredientResponse;
+import com.inventory.demo.ingredient.IngredientDtos.PatchIngredientRequest;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -57,6 +58,21 @@ public class IngredientServiceImpl implements IngredientService{
             .orElseThrow(() -> new ResourceNotFoundException("Ingredient Not Found"));
 
         return IngredientMapper.toResponse(ingredient);
+    }
+
+    @Override
+    public IngredientResponse patch(PatchIngredientRequest request, UUID ingredientId){
+
+        Category category = categoryRepository.findById(request.categoryId())
+            .orElseThrow(() -> new ResourceNotFoundException("Category Not Found"));
+
+        Ingredient ingredient = ingredientRepository.findById(ingredientId)
+            .orElseThrow(() -> new ResourceNotFoundException("Ingredient Not Found"));
+
+        IngredientMapper.patch(request, ingredient, category);
+        Ingredient saved = ingredientRepository.save(ingredient);
+
+        return IngredientMapper.toResponse(saved);
     }
 
     @Override

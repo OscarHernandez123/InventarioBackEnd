@@ -72,6 +72,19 @@ public class MovementServiceImpl implements MovementService{
     }
 
     @Override
+    public List<MovementResponse> getMovementsByIngredient(UUID ingredientId){
+
+        ingredientRepository.findById(ingredientId)
+            .orElseThrow(() -> new ResourceNotFoundException("Ingredient Not Found"));
+
+        List<Movement> movements = movementRepository.findByIngredientId(ingredientId);
+
+        return movements.stream()
+            .map(MovementMapper::toResponse)
+            .toList();
+    }
+
+    @Override
     public MovementResponse get(UUID movementId) {
         
         Movement movement = movementRepository.findById(movementId)
